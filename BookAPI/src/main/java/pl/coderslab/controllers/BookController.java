@@ -2,10 +2,7 @@ package pl.coderslab.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.model.Book;
 import pl.coderslab.services.MockBookService;
 
@@ -31,6 +28,24 @@ public class BookController {
     @GetMapping(path = "/{id}", produces = "text/plain;charset=UTF-8")
     public Book getById(@PathVariable ("id") long id) {
         return mockBookService.get(id).orElse(null);
+    }
+
+    @PostMapping()
+    public String add(@RequestBody Book book) {
+        mockBookService.add(book);
+        return "Book has been added successfully";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable ("id") long id) {
+        mockBookService.delete(id);
+        return "Book has been deleted successfully";
+    }
+
+    @PutMapping()
+    public String update(@RequestBody Book book) {
+        mockBookService.update(book);
+        return "Book has been updated successfully";
     }
 
     @RequestMapping("/helloBook")

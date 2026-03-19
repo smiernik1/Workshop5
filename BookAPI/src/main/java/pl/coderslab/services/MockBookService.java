@@ -5,6 +5,7 @@ import pl.coderslab.interfaces.BookService;
 import pl.coderslab.model.Book;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public class MockBookService implements BookService {
     public MockBookService() {
         list = new ArrayList<>();
         list.add(new Book(1L, "9788324631766", "Thinking in Java","Bruce Eckel", "Helion", "programming"));
-        list.add(new Book(2L, "9788324627738", "Rusz glowa Java.", "Sierra Kathy,	Bates Bert", "Helion",
+        list.add(new Book(2L, "9788324627738", "Rusz glowa Java.", "Sierra Kathy, Bates Bert", "Helion",
                 "programming"));
         list.add(new Book(3L, "9780130819338", "Java 2. Podstawy","Cay Horstmann, Gary Cornell", "Helion",
                 "programming"));
@@ -40,15 +41,16 @@ public class MockBookService implements BookService {
     @Override
     public void add(Book book) {
         list.add(book);
-        System.out.println("Book has been added successfully");
     }
 
     @Override
     public void delete(Long id) {
-        for   (Book book : list) {
+        Iterator<Book> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Book book = iterator.next();
             if (id != null && id.equals(book.getId())) {
-                list.remove(book);
-                System.out.println("Book has been deleted successfully");
+                iterator.remove();
+                return;
             }
         }
     }
@@ -63,10 +65,8 @@ public class MockBookService implements BookService {
                 bookToUpdate.setAuthor(book.getAuthor());
                 bookToUpdate.setPublisher(book.getPublisher());
                 bookToUpdate.setType(book.getType());
-                System.out.println("Book has been updated successfully");
                 return;
             }
         }
-        System.out.println("No book found with id: " + id);
     }
 }
