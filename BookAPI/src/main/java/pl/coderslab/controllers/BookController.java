@@ -25,9 +25,12 @@ public class BookController {
         return mockBookService.getBooks();
     }
 
-    @GetMapping(path = "/{id}", produces = "text/plain;charset=UTF-8")
-    public Book getById(@PathVariable ("id") long id) {
-        return mockBookService.get(id).orElse(null);
+    @GetMapping( "/{id}")
+    public Book getById(@PathVariable ("id") Long id) {
+        if (mockBookService.get(id).isEmpty()) {
+            return new Book();
+        }
+        return mockBookService.get(id).get();
     }
 
     @PostMapping()
