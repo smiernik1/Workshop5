@@ -1,12 +1,28 @@
 package pl.coderslab.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.coderslab.model.Book;
+import pl.coderslab.services.MockBookService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
+
+    private final MockBookService mockBookService;
+
+    @Autowired
+    public BookController(MockBookService mockBookService) {
+        this.mockBookService = mockBookService;
+    }
+
+    @RequestMapping()
+    public List<Book> get() {
+        return mockBookService.getBooks();
+    }
 
     @RequestMapping("/helloBook")
     public Book helloBook() {
