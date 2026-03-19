@@ -28,8 +28,14 @@ public class MockBookService implements BookService {
 
     @Override
     public Optional<Book> get(Long id) {
+        for  (Book book : list) {
+            if (id != null && id.equals(book.getId())) {
+                return Optional.of(book);
+            }
+        }
         return Optional.empty();
     }
+
 
     @Override
     public void add(Book book) {
