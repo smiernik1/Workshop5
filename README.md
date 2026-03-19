@@ -1,7 +1,7 @@
 # Workshop5
 Aplikacja webowej  (WebApp) w Javie (Spring) do zarządzania książkami (CRUD).
 
-# Funkcjonalności
+## Funkcjonalności
 
 Aplikacja pozwala na:
 - wyświetlanie listy książek
@@ -11,21 +11,21 @@ Aplikacja pozwala na:
 
 Dodatkowo zawiera prosty panel administracyjny do zarządzania danymi.
 
-# Technologie
+## Technologie
 
 - Java
 - Spring (MVC / Core)
 - Maven
 - Tomcat
 
-# API (przykładowe endpointy)
+## API (przykładowe endpointy)
 
 - `/books` – lista książek  
 - `/add` – dodanie książki  
 - `/delete` – usunięcie książki  
 - `/update` – edycja książki  
 
-# Cel projektu
+## Cel projektu
 
 Celem projektu jest:
 - nauka podstaw Spring MVC
