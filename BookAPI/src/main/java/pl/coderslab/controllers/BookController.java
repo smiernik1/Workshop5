@@ -1,8 +1,10 @@
 package pl.coderslab.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.model.Book;
 import pl.coderslab.services.MockBookService;
 
@@ -25,12 +27,16 @@ public class BookController {
         return mockBookService.getBooks();
     }
 
-    @GetMapping( "/{id}")
-    public Book getById(@PathVariable ("id") Long id) {
-        if (mockBookService.get(id).isEmpty()) {
-            return new Book();
-        }
-        return mockBookService.get(id).get();
+    @GetMapping("/{id}")
+    public Book getById(@PathVariable("id") Long id) {
+//        if (mockBookService.get(id).isEmpty()) {
+//            return new Book();
+//        }
+//        return mockBookService.get(id).get();
+        return mockBookService.get(id).orElseThrow(() -> {
+            throw new ResponseStatusException
+                    (HttpStatus.NOT_FOUND, "Book not found");
+        });
     }
 
     @PostMapping()
@@ -40,7 +46,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable ("id") long id) {
+    public String delete(@PathVariable("id") long id) {
         mockBookService.delete(id);
         return "Book has been deleted successfully";
     }
