@@ -39,16 +39,34 @@ public class MockBookService implements BookService {
 
     @Override
     public void add(Book book) {
-
+        list.add(book);
+        System.out.println("Book has been added successfully");
     }
 
     @Override
     public void delete(Long id) {
-
+        for   (Book book : list) {
+            if (id != null && id.equals(book.getId())) {
+                list.remove(book);
+                System.out.println("Book has been deleted successfully");
+            }
+        }
     }
 
     @Override
     public void update(Book book) {
-
+        Long id = book.getId();
+        for   (Book bookToUpdate : list) {
+            if (id.equals(bookToUpdate.getId())) {
+                bookToUpdate.setIsbn(book.getIsbn());
+                bookToUpdate.setTitle(book.getTitle());
+                bookToUpdate.setAuthor(book.getAuthor());
+                bookToUpdate.setPublisher(book.getPublisher());
+                bookToUpdate.setType(book.getType());
+                System.out.println("Book has been updated successfully");
+                return;
+            }
+        }
+        System.out.println("No book found with id: " + id);
     }
 }
