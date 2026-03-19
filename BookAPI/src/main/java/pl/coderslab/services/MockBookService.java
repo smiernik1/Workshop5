@@ -12,6 +12,7 @@ import java.util.Optional;
 @Service
 public class MockBookService implements BookService {
 
+
     private List<Book> list;
     public MockBookService() {
         list = new ArrayList<>();
@@ -21,6 +22,8 @@ public class MockBookService implements BookService {
         list.add(new Book(3L, "9780130819338", "Java 2. Podstawy","Cay Horstmann, Gary Cornell", "Helion",
                 "programming"));
     }
+
+    private static Long nextId = 4L;
 
     @Override
     public List<Book> getBooks() {
@@ -40,6 +43,7 @@ public class MockBookService implements BookService {
 
     @Override
     public void add(Book book) {
+        book.setId(nextId++);
         list.add(book);
     }
 
